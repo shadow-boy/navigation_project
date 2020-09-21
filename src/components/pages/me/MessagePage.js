@@ -20,7 +20,7 @@ export default class MessagePage extends React.Component {
     render(){
         return (
             <View style={style.container}>
-                <Text>HomeDetailPage</Text>
+                <Text>MessagePage</Text>
             </View>
         )
     }

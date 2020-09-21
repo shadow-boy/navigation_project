@@ -5,9 +5,9 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar, TouchableOpacity
+    StatusBar, TouchableOpacity, Image
 } from 'react-native';
-import navigaitonService from '../../router/navigaitonService';
+import navigaitonService from '../../../router/navigaitonService';
 
 
 
@@ -23,10 +23,11 @@ export default class HomePage extends React.Component {
             <View style={style.container}>
                 <Text>HomePage</Text>
                 <TouchableOpacity onPress={()=>{
-                    navigaitonService.navigate("homeDetail")
+                    navigaitonService.push("homeDetail")
                 }}>
                     <Text style={{backgroundColor:"blue"}}>go detail</Text>
                 </TouchableOpacity>
+
             </View>
         )
     }

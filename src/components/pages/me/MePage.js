@@ -20,7 +20,7 @@ export default class MePage extends React.Component {
     render(){
         return (
             <View style={style.container}>
-                <Text>HomeDetailPage</Text>
+                <Text>MePage</Text>
             </View>
         )
     }

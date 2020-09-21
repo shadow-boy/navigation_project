@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { NavigationState, StackActions} from '@react-navigation/native';
+import { NavigationContainerRef, NavigationState, StackActions} from '@react-navigation/native';
 
 
-const navigationRef = React.createRef()
+const navigationRef = React.createRef<NavigationContainerRef>()
 
 function navigate(name = "", params = {}) {
     navigationRef.current?.navigate(name, params);
@@ -20,7 +20,7 @@ function push(name = "", params = {}) {
 function onNavigationStateChange(state:NavigationState) {
 
     console.log(`----onNavigationStateChange`,state)
-
+    
 
 }
 

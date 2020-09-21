@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -8,12 +8,11 @@ import {
     StatusBar,
 } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomePage from "../pages/home/HomePage";
-import HomeDetailPage from "../pages/home/HomeDetailPage";
+import HomePage from "../components/pages/home/HomePage";
+import HomeDetailPage from "../components/pages/home/HomeDetailPage";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import MePage from "../pages/me/MePage";
-import MessagePage from "../pages/me/MessagePage";
-import { observer } from 'mobx-react';
+import MePage from "../components/pages/me/MePage";
+import MessagePage from '../components/pages/me/MessagePage';
 
 
 const Stack = createStackNavigator();
@@ -24,9 +23,10 @@ const HomeRoute = {
     homeDetail: HomeDetailPage
 }
 
+// @ts-ignore
 const MeRoute = {
-    me: MePage,
-    message: MessagePage
+    "me": MePage,
+    "message":MessagePage
 }
 
 

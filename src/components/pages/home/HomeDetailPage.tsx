@@ -5,10 +5,10 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar, TouchableOpacity,
+    StatusBar, TouchableOpacity,Image
 } from 'react-native';
 import { StackScreenProps } from "@react-navigation/stack/lib/typescript/src/types";
-import BasePageComponent, { BaseComponentProps, BaseComponetState } from '../../components/BasePageComponent';
+import BasePageComponent, { BaseComponentProps, BaseComponetState } from '../../base/BasePageComponent';
 import { inject, observer } from 'mobx-react';
 
 
@@ -24,7 +24,7 @@ export interface Props extends BaseComponentProps {
 }
 export interface State extends BaseComponetState {
     counter: number,
-    data:ISignUpData
+    data:ISignUpData| null
 }
 @inject("store")
 @observer
@@ -37,6 +37,7 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
             counter: 0,
             data:null
         }
+        this.props.navigation.setOptions({headerShown:false})
 
 
     }
@@ -74,6 +75,8 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
                 </TouchableOpacity>
 
                 <Text>{JSON.stringify(this.state.data)}</Text>
+
+
             </View>
         )
 
@@ -90,6 +93,6 @@ const style = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'white'
+        backgroundColor: 'orange'
     }
 })

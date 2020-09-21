@@ -6,6 +6,8 @@
  * @flow strict-local
  */
 
+
+console.disableYellowBox = true
 import React from 'react';
 import {
     SafeAreaView,
