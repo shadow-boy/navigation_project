@@ -5,7 +5,7 @@ import ConstantsKey from "@utils/constantsDefine";
 import LocalStorage from "@utils/localStorage";
 import axios from "axios";
 import HeaderManager from "./headerManager/headerManager";
-import HttpResponseKeys from "./httpResKey";
+import HttpResponseKeys,{HttpResModel} from "./httpResKey";
 import RequestManager, { JSON_REQ_RES_SERILIZATION } from "./requestManager";
 
 
@@ -85,7 +85,7 @@ instance.interceptors.response.use(function (response) {
         console.log(response);
     }
     //改成 都返回。不管、在业务代码判断status字段
-    return constructFormatResponseData(_data);
+    return constructFormatResponseData(_data) as any
 
 
 }, function (error) {
@@ -112,7 +112,7 @@ function constructFormatResponseData(_data = null) {
     let errorMsg = _data[HttpResponseKeys.Field.key_error_msg];
 
 
-    let returnData = new HttpResModel();
+    let returnData = new HttpResModel()
     returnData.status = success
     returnData.data = data
     returnData.code = code
