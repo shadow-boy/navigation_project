@@ -22,7 +22,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import navigationService from './src/router/navigaitonService';
 import { Provider } from 'mobx-react';
-import Stores from './src/store';
+import storeInstance from '@store';
 
 
 const Stack = createStackNavigator();
@@ -30,7 +30,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
     return (
-        <Provider store = {Stores}>
+        <Provider store = {storeInstance}>
             <NavigationContainer ref={navigationService.navigationRef}
                 onStateChange={navigationService.onNavigationStateChange}
             >

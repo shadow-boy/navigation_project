@@ -11,9 +11,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomePage from "../components/pages/home/HomePage";
 import HomeDetailPage from "../components/pages/home/HomeDetailPage";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import MePage from "../components/pages/me/MePage";
-import MessagePage from '../components/pages/me/MessagePage';
-
+import MePage from "@components/pages/me/MePage";
+import MessagePage from "@components/pages/me/MessagePage";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

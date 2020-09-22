@@ -1,7 +1,16 @@
 import UserInfoStore from "./user";
 
-const Stores ={
+export class Stores extends Object {
     userinfo:UserInfoStore
+    other:any
+    constructor(){
+        super()
+        this.userinfo = null
+        this.other = null
+    }
 }
 
-export default Stores
+const storeInstance = new Stores();
+
+export default storeInstance
+

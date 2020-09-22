@@ -1,3 +1,4 @@
+import BasePageComponent from '@components/base/BasePageComponent';
 import React from 'react';
 import {
     SafeAreaView,
@@ -11,11 +12,14 @@ import navigaitonService from '../../../router/navigaitonService';
 
 
 
-export default class HomePage extends React.Component {
+
+
+export default class HomePage extends BasePageComponent {
 
     constructor(props) {
       super(props);
       this.state = {};
+
     }
 
     render(){

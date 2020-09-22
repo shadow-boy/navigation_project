@@ -7,7 +7,6 @@ import {
     Text,
     StatusBar, TouchableOpacity,Image
 } from 'react-native';
-import { StackScreenProps } from "@react-navigation/stack/lib/typescript/src/types";
 import BasePageComponent, { BaseComponentProps, BaseComponetState } from '../../base/BasePageComponent';
 import { inject, observer } from 'mobx-react';
 
@@ -38,7 +37,8 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
             data:null
         }
         this.props.navigation.setOptions({headerShown:false})
-
+        console.log(`this.props.store---`,this.props.store);
+        
 
     }
     render(): ReactNode {
@@ -54,6 +54,9 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
 
 
                 <TouchableOpacity onPress={() => {
+                    this.setState({
+                        counter:this.state.counter+1
+                    })
 
 
                 }}>
@@ -75,6 +78,11 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
                 </TouchableOpacity>
 
                 <Text>{JSON.stringify(this.state.data)}</Text>
+                <TouchableOpacity onPress={()=>{
+                    this.props.navigation.setOptions({headerShown:true})
+                }}>
+                    <Text>show title</Text>
+                </TouchableOpacity>
 
 
             </View>
