@@ -5,10 +5,12 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar, TouchableOpacity,Image
+    StatusBar, TouchableOpacity, Image
 } from 'react-native';
 import BasePageComponent, { BaseComponentProps, BaseComponetState } from '../../base/BasePageComponent';
 import { inject, observer } from 'mobx-react';
+import navigationService from '@router/navigaitonService';
+import { CommonActions } from '@react-navigation/native';
 
 
 
@@ -23,7 +25,7 @@ export interface Props extends BaseComponentProps {
 }
 export interface State extends BaseComponetState {
     counter: number,
-    data:ISignUpData| null
+    data: ISignUpData | null
 }
 @inject("store")
 @observer
@@ -34,14 +36,19 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
 
         this.state = {
             counter: 0,
-            data:null
+            data: null
         }
-        this.props.navigation.setOptions({headerShown:false})
-        console.log(`this.props.store---`,this.props.store);
-        
+        console.log(`this.props.store----`, this.props.store);
+
+
+    }
+    componentDidMount() {
+        this.props.navigation.setOptions({ headerShown: false })
 
     }
     render(): ReactNode {
+        // console.log(`this.props.store----`,this.props.store);
+
         return (
             <View style={style.container}>
                 <Text>HomeDetailPage</Text>
@@ -55,7 +62,7 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
 
                 <TouchableOpacity onPress={() => {
                     this.setState({
-                        counter:this.state.counter+1
+                        counter: this.state.counter + 1
                     })
 
 
@@ -78,11 +85,44 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
                 </TouchableOpacity>
 
                 <Text>{JSON.stringify(this.state.data)}</Text>
-                <TouchableOpacity onPress={()=>{
-                    this.props.navigation.setOptions({headerShown:true})
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.setOptions({ headerShown: true })
                 }}>
                     <Text>show title</Text>
                 </TouchableOpacity>
+                
+                <TouchableOpacity onPress={()=>{
+                    navigationService.restart()
+                    // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
+                    
+                }}>
+                    <Text>reset app</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={()=>{
+                    navigationService.goBack()
+                    // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
+                    
+                }}>
+                    <Text>go back</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                    navigationService.push("homeDetail")
+                    // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
+                    
+                }}>
+                    <Text>go next</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={()=>{
+                    navigationService.popToTop()
+                    // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
+                    
+                }}>
+                    <Text>poptoroot</Text>
+                </TouchableOpacity>
+
+
 
 
             </View>

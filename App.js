@@ -7,7 +7,7 @@
  */
 
 
-console.disableYellowBox = true
+LogBox.ignoreAllLogs = true
 import React from 'react';
 import {
     SafeAreaView,
@@ -15,7 +15,7 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar,
+    StatusBar, LogBox
 } from 'react-native';
 import router from './src/router'
 import { NavigationContainer } from "@react-navigation/native";
