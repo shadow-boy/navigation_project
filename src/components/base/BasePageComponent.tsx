@@ -134,9 +134,15 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
 
     }
 
+    /**
+     * 类似于viewWillAppear
+     */
     componentAppear() {
 
     }
+    /**
+     * 类似于viewDidDisappear
+     */
     componentDisappear() {
 
     }
