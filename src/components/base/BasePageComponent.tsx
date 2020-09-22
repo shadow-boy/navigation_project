@@ -124,6 +124,12 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
             this.componentDisappear()
 
         })
+        this.navigation.addListener("beforeRemove",(payload)=>{
+            if(!this.onNavigationBackPress()){
+                payload.preventDefault()
+            }
+
+        })
     }
     /**
      * 移除component的生命周期listener（跟navigation无关联）
@@ -167,7 +173,7 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
                 }
             }
             else {
-                navigationService.goBack();
+                this.navigation.goBack();
             }
 
         }
@@ -176,11 +182,13 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
     }
 
 
-    /**
-     * 返回键默认实现 【导航栏返回键、安卓物理返回键】
-     */
-    onNavigationBackPress() {
-        navigationService.goBack()
+  /**
+   * 返回键默认实现 【导航栏返回键、安卓物理返回键】 
+   * 返回true 表示执行 
+   */
+    onNavigationBackPress():boolean {
+        this.navigation.goBack()
+        return true
 
     }
 
