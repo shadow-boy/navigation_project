@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CommonActions, NavigationContainerRef, NavigationState, StackActions } from '@react-navigation/native';
+import { CommonActions, NavigationContainerRef, NavigationState, Route, StackActions, StackRouter } from '@react-navigation/native';
 
 
 const navigationRef = React.createRef<NavigationContainerRef>()
@@ -67,7 +67,7 @@ const navigationService = {
     restart,
     popToTop,
     goBack,
-    replace
+    replace,
 
 
 }

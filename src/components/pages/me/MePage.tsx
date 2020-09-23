@@ -1,3 +1,4 @@
+import BasePageComponent from '@components/base/BasePageComponent';
 import React from 'react';
 import {
     SafeAreaView,
@@ -5,12 +6,12 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar,
+    StatusBar, TouchableOpacity
 } from 'react-native';
 
 
 
-export default class MePage extends React.Component {
+export default class MePage extends BasePageComponent {
 
     constructor(props) {
         super(props);
@@ -21,6 +22,11 @@ export default class MePage extends React.Component {
         return (
             <View style={style.container}>
                 <Text>MePage</Text>
+                <TouchableOpacity onPress={()=>{
+                    this.navigation.push("message")
+                }}>
+                    <Text>go messae</Text>
+                </TouchableOpacity>
             </View>
         )
     }

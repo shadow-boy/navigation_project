@@ -1,5 +1,6 @@
 
 import toast from "@components/custom/toast";
+import AppShareGlobal from "@global";
 import React, { Component } from "react";
 import {
     View,

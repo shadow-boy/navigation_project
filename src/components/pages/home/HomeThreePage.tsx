@@ -1,4 +1,5 @@
 import BasePageComponent from '@components/base/BasePageComponent';
+import navigationService from '@router/navigaitonService';
 import React from 'react';
 import {
     SafeAreaView,
@@ -8,26 +9,30 @@ import {
     Text,
     StatusBar, TouchableOpacity, Image
 } from 'react-native';
-import navigaitonService from '../../../router/navigaitonService';
+import { MyProps } from './HomeDetailPage';
 
 
 
 
 
-export default class HomePage extends BasePageComponent {
+export default class HomeThreePage extends BasePageComponent {
 
     constructor(props) {
       super(props);
       this.state = {};
 
     }
+    componentAppear(){
+        this.props.navigation.setOptions({title:"HomeThreePage"})
+    }
 
     render(){
         return (
             <View style={style.container}>
-                <Text>HomePage</Text>
+                <Text>HomeThreePage</Text>
                 <TouchableOpacity onPress={()=>{
-                    navigaitonService.push("homeDetail")
+                    let para:MyProps = {id:"15151131"}
+                    navigationService.push("homeDetail",para)
                 }}>
                     <Text style={{backgroundColor:"blue"}}>go detail</Text>
                 </TouchableOpacity>

@@ -7,10 +7,10 @@ import {
     Text,
     StatusBar, TouchableOpacity, Image
 } from 'react-native';
-import BasePageComponent, { BaseComponentProps, BaseComponetState } from '../../base/BasePageComponent';
 import { inject, observer } from 'mobx-react';
 import navigationService from '@router/navigaitonService';
-import { CommonActions } from '@react-navigation/native';
+import BasePageComponent, { BaseComponentProps, BaseComponetState } from '@components/base/BasePageComponent';
+
 
 
 
@@ -27,9 +27,14 @@ export interface State extends BaseComponetState {
     counter: number,
     data: ISignUpData | null
 }
+
+export interface MyProps {id:string}
+
+
 @inject("store")
 @observer
-class HomeDetailPage extends BasePageComponent<Props, State> {
+class HomeDetailPage extends BasePageComponent<Props, State,MyProps> {
+
 
     constructor(props: Props) {
         super(props)
@@ -38,12 +43,14 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
             counter: 0,
             data: null
         }
-        console.log(`this.props.store----`, this.props.store);
+        console.log(this.paramsOfRoute);
+        
+
 
 
     }
     componentDidMount() {
-        this.props.navigation.setOptions({ headerShown: false })
+        // this.props.navigation.setOptions({ headerShown: false })
 
     }
     render(): ReactNode {
@@ -90,34 +97,34 @@ class HomeDetailPage extends BasePageComponent<Props, State> {
                 }}>
                     <Text>show title</Text>
                 </TouchableOpacity>
-                
-                <TouchableOpacity onPress={()=>{
+
+                <TouchableOpacity onPress={() => {
                     navigationService.restart()
                     // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
-                    
+
                 }}>
                     <Text>reset app</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity onPress={() => {
                     navigationService.goBack()
                     // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
-                    
+
                 }}>
                     <Text>go back</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity onPress={() => {
                     navigationService.push("homeDetail")
                     // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
-                    
+
                 }}>
                     <Text>go next</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity onPress={() => {
                     navigationService.popToTop()
                     // this.props.navigation.dispatch(CommonActions.reset({index:0,routes:[{name:"loginStack"}]}))
-                    
+
                 }}>
                     <Text>poptoroot</Text>
                 </TouchableOpacity>

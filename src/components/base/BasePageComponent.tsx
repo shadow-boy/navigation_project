@@ -1,6 +1,7 @@
+
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
-import navigationService from '@router/navigaitonService';
 import { Stores } from '@store';
+import { toJS } from 'mobx';
 import React, { Component } from 'react';
 import { BackHandler, NativeEventSubscription, Platform, View } from 'react-native';
 
@@ -14,9 +15,17 @@ export type BaseComponentProps = StackScreenProps<any, any> & { store: Stores }
 
 export type BaseComponetState = {}
 
+type BaseParamsType = Object
 
 
-export default class BasePageComponent<P extends BaseComponentProps, S extends BaseComponetState> extends Component<P, S>{
+
+export default class BasePageComponent
+    <
+    P extends BaseComponentProps = BaseComponentProps,
+    S extends BaseComponetState = BaseComponetState,
+    PARAMS extends BaseParamsType = Object
+    >
+    extends Component<P, S>{
 
     /**
      *导航器
@@ -44,17 +53,40 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
      */
     listenerAndroidBack: NativeEventSubscription
 
+
+    /**
+     *导航路由参数
+     *
+     * @type {PARAMS}
+     * @memberof BasePageComponent
+     */
+    paramsOfRoute: PARAMS = null
+
     constructor(props: P) {
         super(props)
         this.navigation = props.navigation;
+
+        if (props.route.params) {
+            this.paramsOfRoute = props.route.params
+        }
+        else {
+            this.paramsOfRoute = Object()
+        }
 
 
         this.loadData();
         this.addViewLifeCircleEventListener()
         this.addAndroidHardBackPressListener()
 
+        this.configCurrent()
+
+
     };
 
+
+   private configCurrent() {
+        this.navigation.setOptions({ gestureEnabled: this.autoSystemGoBack() })
+    }
 
     componentWillUnmount() {
         this.removeLifeCircleEventListener()
@@ -67,7 +99,7 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
         if (this.navigation && this.navigation.isFocused()) {
             if (Platform.OS == "android") {
                 this.listenerAndroidBack = BackHandler.addEventListener("hardwareBackPress", () => {
-                    this.onBackButtonPressAndroid();
+                    this.goBack();
                     return true;
                 });
             }
@@ -124,8 +156,10 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
             this.componentDisappear()
 
         })
-        this.navigation.addListener("beforeRemove",(payload)=>{
-            if(!this.onNavigationBackPress()){
+
+        //此处非常不能直接返回 调用goback 不然会导致 此处回调继续被调用、导致循环调用
+        this.navigation.addListener("beforeRemove", (payload) => {
+            if (!this.autoSystemGoBack()) {
                 payload.preventDefault()
             }
 
@@ -155,41 +189,29 @@ export default class BasePageComponent<P extends BaseComponentProps, S extends B
 
 
     /**
-    * 安卓物理按键返回
-    */
-    onBackButtonPressAndroid() {
-        let { navigation } = this.props;
+     * 返回键默认实现 【导航栏返回键、安卓物理返回键】 
+     * 返回true 表示执行 
+     */
+    goBack() {
 
-        if (navigation) {// 必须在有navigation的情况下才能操作界面、
+        let isCurrentPageFocus = this.navigation.isFocused()
 
-            let isCurrentPageFocus = navigation.isFocused()
-
-            if (isCurrentPageFocus) {
-                if (this.onNavigationBackPress) {
-                    this.onNavigationBackPress();
-                    return true
-                } else {
-                    return false
-                }
+        if (isCurrentPageFocus) {
+            if (this.navigation.canGoBack()) {
+                this.navigation.pop()
+                return true
             }
-            else {
-                this.navigation.goBack();
-            }
-
         }
 
-        return false;
+        return false
+
     }
 
-
-  /**
-   * 返回键默认实现 【导航栏返回键、安卓物理返回键】 
-   * 返回true 表示执行 
-   */
-    onNavigationBackPress():boolean {
-        this.navigation.goBack()
+    /**
+     * 是否 启用系统返回功能 【点击返回和侧滑返回】
+     */
+    autoSystemGoBack(): boolean {
         return true
-
     }
 
 

@@ -1,3 +1,5 @@
+import BasePageComponent from '@components/base/BasePageComponent';
+import navigationService from '@router/navigaitonService';
 import React from 'react';
 import {
     SafeAreaView,
@@ -5,11 +7,11 @@ import {
     ScrollView,
     View,
     Text,
-    StatusBar,
+    StatusBar, TouchableOpacity
 } from 'react-native';
 
 
-export default class LoginPage extends React.Component {
+export default class LoginPage extends BasePageComponent {
 
     constructor(props) {
         super(props);
@@ -20,6 +22,14 @@ export default class LoginPage extends React.Component {
         return (
             <View style={style.container}>
                 <Text>LoginPage</Text>
+                <TouchableOpacity style={{backgroundColor:"blue"}}
+                onPress={()=>{
+                    this.navigation.push("tab")
+                    // this.navigation.reset({routes:[{name:"tab"},{name:"homeDetail"}],index:1})
+
+                }}>
+                    <Text>login</Text>
+                </TouchableOpacity>
             </View>
         )
     }

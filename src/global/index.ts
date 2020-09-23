@@ -1,10 +1,11 @@
 import {Dimensions, StatusBar, Platform, PixelRatio} from 'react-native';
 
-const deviceInfo = {
+const  deviceInfo = {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
 }
 
-export default {
+const AppShareGlobal = {
     deviceInfo
 }
+export default AppShareGlobal
