@@ -107,6 +107,10 @@ const TabScreen = () => {
     )
 }
 
+/**
+ * 采用这种路由架构是因为 App通常登录之后跳转的动画一般都是modal 形式的、不是默认的card 
+ * 参考 iOS原生的present 和pushviewcontroller两种方式 , 通常用户登录之后一般是presen形式
+ */
 const routerRoot = () => {
 
     return (
