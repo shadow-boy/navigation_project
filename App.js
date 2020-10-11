@@ -7,7 +7,6 @@
  */
 
 
-LogBox.ignoreAllLogs = true
 import React from 'react';
 import {
     SafeAreaView,
@@ -23,6 +22,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import navigationService from './src/router/navigaitonService';
 import { Provider } from 'mobx-react';
 import storeInstance from '@store';
+LogBox.ignoreAllLogs = true
+LogBox.ignoreLogs = ["Cannot update a component from inside the function body of a different component."]
+
 
 
 const Stack = createStackNavigator();

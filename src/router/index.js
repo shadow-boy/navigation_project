@@ -16,43 +16,111 @@ import MessagePage from "@components/pages/me/MessagePage";
 import LoginPage from '@components/pages/login/Login';
 import RegisterPage from '@components/pages/login/Register';
 import HomeThreePage from '@components/pages/home/HomeThreePage';
+import Entrance from '@components/pages/Entrance';
 
-const Stack = createStackNavigator();
+const RootStack = createStackNavigator();
+
+const MainStack = createStackNavigator()
+
+const LoginStack = createStackNavigator()
+
+const MeStack = createStackNavigator()
+
+
 const Tab = createBottomTabNavigator();
 
-const RouteList = {
-    homeDetail: HomeDetailPage,
-    homeThree: HomeThreePage,
-    message: MessagePage,
+const RouteListLogin = {
     login: LoginPage,
     regist: RegisterPage
 
 }
+const RouteListHome = {
+    home: HomePage,
+    homeDetail: HomeDetailPage,
+    homeThree: HomeThreePage
 
+}
+
+const RouteListMe = {
+
+    me: MePage,
+    message: MessagePage
+
+}
+
+const routerLogin = () => {
+    return <LoginStack.Navigator initialRouteName="login" screenOptions={{ gestureEnabled: false }}>
+
+        {Object.keys(RouteListLogin).map((item) => {
+            return <LoginStack.Screen key={item} name={item} component={RouteListLogin[item]} />
+        })
+        }
+    </LoginStack.Navigator>
+
+}
+
+
+const routerHome = () => {
+    return <MainStack.Navigator initialRouteName="login" screenOptions={{ gestureEnabled: false }}>
+
+        {Object.keys(RouteListHome).map((item) => {
+            return <MainStack.Screen key={item} name={item} component={RouteListHome[item]} />
+        })
+        }
+    </MainStack.Navigator>
+
+}
+
+const routerMe = () => {
+    return <MeStack.Navigator initialRouteName="login" screenOptions={{ gestureEnabled: false }}>
+
+        {Object.keys(RouteListMe).map((item) => {
+            return <MeStack.Screen key={item} name={item} component={RouteListMe[item]} />
+        })
+        }
+    </MeStack.Navigator>
+
+}
+
+/**
+ * 获取tabbar 可见度
+ * @param {} route 
+ */
+const getTabBarVisibility = (route) => {
+
+    if (route.state && route.state.index > 0){
+        return false
+    }
+    return true;
+}
+ const tabBarVisibleOptionConfig = ({route})=>{
+     return {tabBarVisible:getTabBarVisibility(route)}
+ }
 
 
 const TabScreen = () => {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="tabHome" component={HomePage} />
-            <Tab.Screen name="tabMe" component={MePage} />
+            <Tab.Screen name="tabHome" component={routerHome} options={tabBarVisibleOptionConfig} />
+            <Tab.Screen name="tabMe" component={routerMe} options={tabBarVisibleOptionConfig} />
         </Tab.Navigator>
     )
 }
 
-const router = () => {
+const routerRoot = () => {
 
     return (
-        <Stack.Navigator initialRouteName="login" screenOptions={{gestureEnabled:false}}>
-            <Stack.Screen name="tab" component={TabScreen} />
-            {
-                Object.keys(RouteList).map((item) => {
-                    return <Stack.Screen key={item} name={item} component={RouteList[item]} />
-                })
-            }
+        <RootStack.Navigator initialRouteName="entrance" screenOptions={{ gestureEnabled: false, headerShown: false }} mode="modal">
 
-        </Stack.Navigator>
+            <RootStack.Screen name="entrance" component={Entrance} />
+
+            <RootStack.Screen name="tab" component={TabScreen} />
+
+            <RootStack.Screen name="sign" component={routerLogin} />
+
+
+        </RootStack.Navigator>
     )
 
 }
-export default router;
+export default routerRoot;

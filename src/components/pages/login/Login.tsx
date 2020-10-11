@@ -24,7 +24,7 @@ export default class LoginPage extends BasePageComponent {
                 <Text>LoginPage</Text>
                 <TouchableOpacity style={{backgroundColor:"blue"}}
                 onPress={()=>{
-                    this.navigation.push("tab")
+                    this.navigation.replace("tab")
                     // this.navigation.reset({routes:[{name:"tab"},{name:"homeDetail"}],index:1})
 
                 }}>

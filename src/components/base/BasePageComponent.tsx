@@ -1,7 +1,6 @@
 
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import { Stores } from '@store';
-import { toJS } from 'mobx';
 import React, { Component } from 'react';
 import { BackHandler, NativeEventSubscription, Platform, View } from 'react-native';
 
@@ -78,7 +77,6 @@ export default class BasePageComponent
         this.addViewLifeCircleEventListener()
         this.addAndroidHardBackPressListener()
 
-        this.configCurrent()
 
 
     };
@@ -86,6 +84,9 @@ export default class BasePageComponent
 
    private configCurrent() {
         this.navigation.setOptions({ gestureEnabled: this.autoSystemGoBack() })
+    }
+    componentDidMount(){
+        this.configCurrent()
     }
 
     componentWillUnmount() {
@@ -218,24 +219,3 @@ export default class BasePageComponent
 
 
 }
-
-
-// interface P {
-//     name: string;
-//     age: number;
-//     sex?:number
-// }
-// const people: P = {
-//     age: 20,
-//     name: 'wang',
-// };
-
-// const fn: <P, T extends keyof P>(p: P, t: T[]) => Array<P[T]> = (p, t) => {
-//     return t.map(item => p[item])
-// };
-// const res = fn(people, ["age"])
-
-// type MapToPromise<T> = { [K in keyof P]: Promise<P[K]> };
-// type Coordinate = [number, number]
-
-// type PromiseCoordinate = MapToPromise<Coordinate>; // [Promise<number>, Promise<number>]
